@@ -1,0 +1,62 @@
+﻿<metro:MetroWindow x:Class="DotNetExeAnalyzer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        Title=".Net EXE Analyzer" Height="600" Width="900">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Buttons panel -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Open File" Click="OpenFile_Click" Width="130"/>
+            <Button Content="Export IL" Click="ExportIL_Click" Width="100" Margin="10,0,0,0"/>
+            <Button Content="Copy IL" Click="CopyIL_Click" Width="100" Margin="10,0,0,0"/>
+            <TextBlock x:Name="txtFileInfo" Margin="20,0,0,0" VerticalAlignment="Center" Foreground="LightGray"/>
+        </StackPanel>
+
+        <!-- Filter TextBox with placeholder implemented in code-behind -->
+        <TextBox Grid.Row="1" x:Name="txtFilter" Margin="0,0,0,10" Width="300" Height="25"
+                 Text="Search..." Foreground="Gray"
+                 GotFocus="txtFilter_GotFocus"
+                 LostFocus="txtFilter_LostFocus"
+                 TextChanged="txtFilter_TextChanged" />
+
+        <!-- Main content layout -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- References list -->
+            <GroupBox Header="References" Margin="5" Grid.Column="0">
+                <ListBox x:Name="lstReferences"/>
+            </GroupBox>
+
+            <!-- Types and Methods tree -->
+            <GroupBox Header="Types &amp; Methods" Margin="5" Grid.Column="1">
+                <TreeView x:Name="treeView" SelectedItemChanged="TreeView_SelectedItemChanged"/>
+            </GroupBox>
+
+            <!-- IL Code display -->
+            <GroupBox Header="IL Code" Margin="5" Grid.Column="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="txtIL" FontFamily="Consolas" FontSize="12"
+                             IsReadOnly="True" TextWrapping="NoWrap"
+                             AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+
+        <!-- Footer -->
+        <TextBlock Grid.Row="3" Text="DotNet EXE Analyzer by You" 
+                   FontStyle="Italic" HorizontalAlignment="Right" Margin="0,10,0,0" Foreground="LightGray"/>
+    </Grid>
+</metro:MetroWindow>
